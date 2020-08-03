@@ -87,3 +87,6 @@ typings/
 
 # Electron-Forge
 out/
+
+# MusicKit key files
+*.p8

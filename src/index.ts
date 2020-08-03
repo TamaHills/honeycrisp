@@ -1,19 +1,21 @@
 import { app, BrowserWindow } from 'electron';
+import { config } from 'dotenv' 
+import Axios from 'axios';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 
+config()
 
-const createWindow = () => {
+const createWindow = async () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 800,
     width: 1200,
   });
 
-  // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  let res = await Axios.get(process.env.TOKEN_SERVER_URL)
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // and load the index.html of the app.
+  mainWindow.loadURL(`${MAIN_WINDOW_WEBPACK_ENTRY}?token=${res.data.token}`);
 };
 
 // This method will be called when Electron has finished

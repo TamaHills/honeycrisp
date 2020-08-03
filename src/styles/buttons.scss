@@ -1,0 +1,12 @@
+@mixin btn-common {
+    background-color: $color10;
+    border: none;
+    color: $color5;
+    border-radius: .5rem;
+    font-family: "Fira Sans";
+    font-weight: 500;
+    &:focus, &:active {
+        outline: none;
+    }
+    cursor: pointer;
+}

@@ -30,6 +30,22 @@ import { h, render } from 'preact';
 import { App } from './app';
 import './index.scss';
 
-const root_app = () => h(App, {});
+const root_app = (musickit: MusicKit.MusicKitInstance) => h(App, { musickit });
 
-render(root_app(), document.getElementById('app'));
+document.addEventListener('musickitloaded', () => {
+    const params = new URLSearchParams(window.location.search)
+
+    const token = params.get('token')
+
+    const musickit = MusicKit.configure({
+        developerToken: token,
+        app: {
+            name: "honeycrisp",
+            version: "0.0.1"
+        }
+    })
+
+    render(root_app(musickit), document.getElementById('app'));
+})
+
+

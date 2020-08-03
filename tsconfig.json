@@ -14,7 +14,9 @@
     "jsxFactory": "h",
     "paths": {
       "*": ["node_modules/*"]
-    }
+    },
+    "skipDefaultLibCheck": true,
+    "typeRoots": ["node_modules/musickit-typescript"]
   },
   "include": [
     "src/**/*"

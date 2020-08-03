@@ -1,0 +1,24 @@
+.library-grid-view {
+    position: absolute;
+    max-height: 100%;
+    grid-template-columns: repeat(auto-fit, 200px);
+    width: 100%;
+    display: grid;
+    overflow-y: scroll;
+}
+
+.album-card {
+    box-sizing: border-box;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    height: 225px;
+    width: 200px;
+    &-name {
+        font-size: .8rem;
+    }
+    &-artist {
+        font-size: .8rem;
+        font-weight: 300;
+    }
+} 
