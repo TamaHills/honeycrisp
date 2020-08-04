@@ -24,12 +24,19 @@ export const Library: FunctionComponent<Props> = ({ musickit }: Props) => {
         musickit.api.library.albums([]).then((res) => setAlbums(res));
     }, []);
 
+    const playAlbum = (id: string) => {
+        // @ts-ignore
+        musickit.setQueue({ album: id }).then(() => {
+            musickit.player.play().catch(e=>console.dir(e))
+        })
+    };
+
     console.log(albums);
 
     return (
         <div id="library-container">
             <div className="library-grid-view">
-                {albums.map(({ attributes }) => {
+                {albums.map(({ id, attributes }) => {
                     const { artwork, name, artistName } = attributes as {
                         artwork: MusicKit.Artwork;
                         name: string;
@@ -38,11 +45,14 @@ export const Library: FunctionComponent<Props> = ({ musickit }: Props) => {
 
                     return (
                         <AlbumCard
+                            key={id}
+                            id={id}
                             albumArtUrl={MusicKit.formatArtworkURL(
                                 artwork,
                                 150,
                                 150,
                             )}
+                            onClick={playAlbum}
                             name={name}
                             artist={artistName}
                         />
@@ -54,19 +64,23 @@ export const Library: FunctionComponent<Props> = ({ musickit }: Props) => {
 };
 
 interface AlbumCardProps {
+    id: string;
     name: string;
     artist: string;
     albumArtUrl: string;
+    onClick: (id: string) => void;
 }
 
 export const AlbumCard: FunctionComponent<AlbumCardProps> = ({
+    id,
     name,
     albumArtUrl,
     artist,
+    onClick,
 }) => {
     return (
-        <div class="album-card">
-            <div class="album-card-artwok">
+        <div onClick={() => onClick(id)} class="album-card">
+            <div class="album-card-artwork">
                 <img src={albumArtUrl} alt={name} />
             </div>
             <div class="album-card-name">{name}</div>

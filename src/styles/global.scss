@@ -1,6 +1,14 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: $color0;
+    * {
+        box-sizing: border-box;
+    }
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 #root-container {

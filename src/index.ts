@@ -10,6 +10,9 @@ const createWindow = async () => {
   const mainWindow = new BrowserWindow({
     height: 800,
     width: 1200,
+    webPreferences: {
+      plugins: true
+    }
   });
 
   let res = await Axios.get(process.env.TOKEN_SERVER_URL)
