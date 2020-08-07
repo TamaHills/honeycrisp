@@ -16,6 +16,7 @@ const createWindow = async () => {
     }
   });
 
+  // load honeycrisp musickit token
   let res = await Axios.get(process.env.TOKEN_SERVER_URL)
 
   // and load the index.html of the app.
