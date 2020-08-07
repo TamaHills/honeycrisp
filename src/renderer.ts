@@ -1,3 +1,4 @@
+import { app } from 'electron';
 /**
  * This file will automatically be loaded by webpack and run in the "renderer" context.
  * To learn more about the differences between the "main" and the "renderer" context in
@@ -28,24 +29,16 @@
 
 import { h, render } from 'preact';
 import { App } from './app';
+import { store } from './app/state';
+import { Provider, ProviderProps } from './app/state/store';
 import './index.scss';
 
-const root_app = (musickit: MusicKit.MusicKitInstance) => h(App, { musickit });
+const RootApp = () => {
+    return h(Provider, { store, children: [h(App, {})]})
+}
 
 document.addEventListener('musickitloaded', () => {
-    const params = new URLSearchParams(window.location.search)
-
-    const token = params.get('token')
-
-    const musickit = MusicKit.configure({
-        developerToken: token,
-        app: {
-            name: "honeycrisp",
-            version: "0.0.1"
-        }
-    })
-
-    render(root_app(musickit), document.getElementById('app'));
+    render(h(RootApp, {}), document.getElementById('app'));
 })
 
 

@@ -10,6 +10,7 @@ const createWindow = async () => {
   const mainWindow = new BrowserWindow({
     height: 800,
     width: 1200,
+    backgroundColor: '#3b4252',
     webPreferences: {
       plugins: true
     }

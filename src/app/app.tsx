@@ -2,41 +2,42 @@ import { h, FunctionComponent } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 
 import { ProtectedRouter } from './components';
+import { HCActionTypes, initMusicKit } from './state/actions';
+import { HCState } from './state/reducer';
+import { DispatchFn, useDispatch, useSelector } from './state/store';
 
-interface Props {
-    musickit: MusicKit.MusicKitInstance;
-}
+export const App: FunctionComponent = () => {
+    const dispatch: DispatchFn<HCActionTypes> = useDispatch();
+    const { isInitialized, isAuthorized, isLoading, library } = useSelector(
+        (state: HCState) => state,
+    );
 
-export const App: FunctionComponent<Props> = ({ musickit }: Props) => {
+    useEffect(() => {
+        dispatch(initMusicKit());
+    }, []);
+
     return (
         <div id="root-container">
-            <ProtectedRouter musickit={musickit}>
-                <Library musickit={musickit} />
+            <ProtectedRouter isAuthorized={isAuthorized}>
+                <Library library={library} />
             </ProtectedRouter>
         </div>
     );
 };
 
-export const Library: FunctionComponent<Props> = ({ musickit }: Props) => {
-    let [albums, setAlbums] = useState<MusicKit.Resource[]>([]);
+interface LibraryProps {
+    library: MusicKit.Resource[];
+}
 
-    useEffect(() => {
-        musickit.api.library.albums([]).then((res) => setAlbums(res));
-    }, []);
-
-    const playAlbum = (id: string) => {
-        // @ts-ignore
-        musickit.setQueue({ album: id }).then(() => {
-            musickit.player.play().catch(e=>console.dir(e))
-        })
-    };
-
-    console.log(albums);
+export const Library: FunctionComponent<LibraryProps> = ({
+    library,
+}: LibraryProps) => {
+    console.log(library);
 
     return (
         <div id="library-container">
             <div className="library-grid-view">
-                {albums.map(({ id, attributes }) => {
+                {library.map(({ id, attributes }) => {
                     const { artwork, name, artistName } = attributes as {
                         artwork: MusicKit.Artwork;
                         name: string;
@@ -52,7 +53,7 @@ export const Library: FunctionComponent<Props> = ({ musickit }: Props) => {
                                 150,
                                 150,
                             )}
-                            onClick={playAlbum}
+                            onClick={() => {}}
                             name={name}
                             artist={artistName}
                         />

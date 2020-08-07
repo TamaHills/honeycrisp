@@ -1,5 +1,7 @@
 import { h, FunctionComponent, VNode, ComponentChildren } from 'preact';
 import { useState } from 'preact/hooks';
+import { authorize, HCDispatch } from '../state/actions/creators';
+import { useDispatch } from '../state/store';
 
 interface SignInProps {
     signInCallback: () => void;
@@ -19,23 +21,19 @@ export const SignIn: FunctionComponent<SignInProps> = ({
 };
 
 interface ProtectedRouterProps {
-    musickit: MusicKit.MusicKitInstance;
+    isAuthorized: boolean;
     children: ComponentChildren;
 }
 
 export const ProtectedRouter: FunctionComponent<ProtectedRouterProps> = ({
-    musickit,
+    isAuthorized,
     children,
 }: ProtectedRouterProps) => {
+    const dispatch: HCDispatch = useDispatch()
 
-    const [authorized, setAuthorized] = useState(musickit.isAuthorized)
-
-
-    const signInCallback = () => {
-       musickit.authorize().then(() => {
-           setAuthorized(true)
-       })
-    }
-
-return authorized ? <div>{children}</div> : <SignIn signInCallback={signInCallback} /> 
+    return isAuthorized ? (
+        <div>{children}</div>
+    ) : (
+        <SignIn signInCallback={() => dispatch(authorize())} />
+    );
 };

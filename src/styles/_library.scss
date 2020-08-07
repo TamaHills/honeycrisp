@@ -4,8 +4,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     max-height: 100vh;
+    padding-bottom: 15px;
+    overflow-y: scroll;
 }
 
 .library-grid-view {
@@ -13,12 +15,6 @@
     justify-content: space-between;
     width: 100vw;
     display: grid;
-    overflow-y: scroll;
-    &:after {
-        content: "";
-        width: 100%;
-        height: 15px;
-    }
 }
 
 .album-card {
@@ -29,22 +25,20 @@
     height: 225px;
     width: 200px;
     &-name {
-        font-size: .8rem;
+        font-size: 0.8rem;
     }
     &-artist {
-        font-size: .8rem;
+        font-size: 0.8rem;
         font-weight: 300;
     }
     &:hover {
         padding: 20px;
         cursor: pointer;
-        .album-card-artwork{
-            img {
-                box-shadow: 0px 0px 5px 5px rgba(46,52,64,0.46);
-                width: 160px;
-                height: 160px;
-            }
+        img {
+            transition: ease 500ms;
+            box-shadow: 0px 0px 5px 5px rgba(46, 52, 64, 0.46);
+            width: 160px;
+            height: 160px;
         }
     }
-    
-} 
+}
