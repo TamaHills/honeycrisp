@@ -1,6 +1,6 @@
 import { MiddlewareContext } from "./types";
 
-export const logger = (ctx: MiddlewareContext) => {
+export const logger = (ctx: MiddlewareContext<any>) => {
     console.log('previous state', ctx.prevState)
     console.log('dispatched action', ctx.action)
     console.log('resulting state', ctx.newState)
