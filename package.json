@@ -48,9 +48,14 @@
               "config": "./webpack.renderer.config.js",
               "entryPoints": [
                 {
-                  "html": "./src/index.html",
-                  "js": "./src/renderer.ts",
-                  "name": "main_window"
+                  "html": "./src/app/index.html",
+                  "js": "./src/app/renderer.ts",
+                  "name": "app"
+                },
+                {
+                  "html": "./src/server/index.html",
+                  "js": "./src/server/server.ts",
+                  "name" : "server"
                 }
               ]
             }

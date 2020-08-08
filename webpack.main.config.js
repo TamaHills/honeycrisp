@@ -10,10 +10,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
-    alias: {
-      'react' : '../node_modules/preact/compat',
-      'react-dom/test-utils' : '../node_modules/preact/test-utils',
-      'react-dom' : '../node_modules/preact/compat'
-    }
+
   },
 };

@@ -6,7 +6,7 @@ const getMusicKitInstance = () => {
     try {
         return MusicKit.getInstance()
     } catch (e) {
-        return e
+        console.error
     }
 }
 

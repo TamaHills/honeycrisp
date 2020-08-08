@@ -1,7 +1,8 @@
 import { app, BrowserWindow } from 'electron';
 import { config } from 'dotenv' 
 import Axios from 'axios';
-declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
+declare const APP_WEBPACK_ENTRY: any;
+declare const SERVER_WEBPACK_ENTRY: any;
 
 config()
 
@@ -16,10 +17,21 @@ const createWindow = async () => {
     }
   });
 
+  const serverWindow = new BrowserWindow({
+    height: 200,
+    width: 400,
+    backgroundColor: '#3b4252',
+    webPreferences: {
+      plugins: true
+    }
+  });
+
+
   let res = await Axios.get(process.env.TOKEN_SERVER_URL)
 
   // and load the index.html of the app.
-  mainWindow.loadURL(`${MAIN_WINDOW_WEBPACK_ENTRY}?token=${res.data.token}`);
+  mainWindow.loadURL(`${APP_WEBPACK_ENTRY}?token=${res.data.token}`);
+  serverWindow.loadURL(`${SERVER_WEBPACK_ENTRY}?token=${res.data.token}`)
 };
 
 // This method will be called when Electron has finished

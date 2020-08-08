@@ -10,11 +10,6 @@ rules.push({
     ],
 });
 
-rules.push({
-    test: /\.(woff|woff2|eot|ttf|otf)$/,
-    use: ['file-loader'],
-});
-
 module.exports = {
     module: {
         rules,
@@ -22,5 +17,10 @@ module.exports = {
     plugins: plugins,
     resolve: {
         extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.scss', '.ttf'],
+        alias: {
+            'react' : '../node_modules/preact/compat',
+            'react-dom/test-utils' : '../node_modules/preact/test-utils',
+            'react-dom' : '../node_modules/preact/compat'
+          }
     },
 };

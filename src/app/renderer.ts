@@ -28,10 +28,10 @@ import { app } from 'electron';
  */
 
 import { h, render } from 'preact';
-import { App } from './app';
-import { store } from './app/state';
-import { Provider, ProviderProps } from './app/state/store';
-import './index.scss';
+import { App } from '.';
+import { store } from './state';
+import { Provider, ProviderProps } from './state/store';
+import '../index.scss';
 
 const RootApp = () => {
     return h(Provider, { store, children: [h(App, {})]})
